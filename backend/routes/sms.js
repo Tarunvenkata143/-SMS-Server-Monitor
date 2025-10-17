@@ -168,6 +168,7 @@ router.post('/send-system-info', async (req, res) => {
     const formattedPhone = user.phone.startsWith('+') ? user.phone : `+91${user.phone}`;
 
     // Send actual SMS using Twilio (primary)
+    let smsSent = false;
     if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_PHONE_NUMBER) {
       const twilio = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
       try {
@@ -178,6 +179,7 @@ router.post('/send-system-info', async (req, res) => {
           to: formattedPhone
         });
         console.log(`System info SMS sent to ${formattedPhone}`, response && response.sid ? response.sid : response);
+        smsSent = true;
       } catch (error) {
         // Log full Twilio error object to help diagnose (don't leak secrets to clients)
         console.error('Error sending system info SMS via Twilio:', error && error.message ? error.message : error);
@@ -203,6 +205,7 @@ router.post('/send-system-info', async (req, res) => {
               }
             });
             console.log('Fast2SMS fallback response:', f2Resp && f2Resp.data ? f2Resp.data : f2Resp);
+            smsSent = true;
           } catch (f2Err) {
             console.error('Fast2SMS fallback error:', f2Err && f2Err.message ? f2Err.message : f2Err);
           }
@@ -210,7 +213,7 @@ router.post('/send-system-info', async (req, res) => {
           console.log('FAST2SMS_API_KEY not configured; no SMS fallback available.');
         }
       }
-        } else {
+    } else {
       // Try a lightweight fallback: Textbelt (free tier) — limited but useful for development.
       try {
         const axios = require('axios');
@@ -224,13 +227,37 @@ router.post('/send-system-info', async (req, res) => {
           key
         });
         console.log('Textbelt fallback response:', tbResp && tbResp.data ? tbResp.data : tbResp);
-        if (!tbResp || !tbResp.data || !tbResp.data.success) {
+        if (tbResp && tbResp.data && tbResp.data.success) {
+          smsSent = true;
+        } else {
           console.log('Textbelt responded with failure; still in mock mode. Response:', tbResp && tbResp.data ? tbResp.data : tbResp);
         }
       } catch (tbErr) {
         console.error('Textbelt fallback error:', tbErr && tbErr.message ? tbErr.message : tbErr);
         console.log('SMS not sent (mock mode). Mock message will include trial prefix.');
       }
+    }
+
+    // Send email notification if configured
+    let emailSent = false;
+    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+      try {
+        const { sendEmail } = require('../config/email');
+        emailSent = await sendEmail(user.email, 'System Status Update - SMS Server Monitor', `Hello ${user.name},\n\nYour system status has been updated:\n\n${messageCore}\n\nThis is an automated notification from SMS Server Monitor.`);
+      } catch (emailErr) {
+        console.error('Email send error:', emailErr && emailErr.message ? emailErr.message : emailErr);
+      }
+    }
+
+    // Log the sending status
+    if (smsSent && emailSent) {
+      console.log('System status sent via both SMS and Email');
+    } else if (smsSent) {
+      console.log('System status sent via SMS only');
+    } else if (emailSent) {
+      console.log('System status sent via Email only');
+    } else {
+      console.log('System status not sent via SMS or Email - check configuration');
     }
 
     smsHistory.unshift({

@@ -238,19 +238,11 @@ router.get('/logs', async (req, res) => {
               const user = await UserModel.findById(decoded.id);
               if (user && user.email && process.env.EMAIL_USER && process.env.EMAIL_PASS) {
                 try {
-                  const nodemailer = require('nodemailer');
-                  const transporter = nodemailer.createTransport({
-                    service: process.env.EMAIL_SERVICE || 'gmail',
-                    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
-                  });
-                  const mailOptions = {
-                    from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
-                    to: user.email,
-                    subject: 'Server Alert Notification',
-                    text: `Hi ${user.name || recipientName}, ALERT: ${alerts.join(', ')}`
-                  };
-                  const emailRes = await transporter.sendMail(mailOptions);
-                  console.log('Alert email sent to', user.email, emailRes && emailRes.messageId ? emailRes.messageId : emailRes);
+                  const { sendEmail } = require('../config/email');
+                  const emailSent = await sendEmail(user.email, 'Server Alert Notification', `Hi ${user.name || recipientName}, ALERT: ${alerts.join(', ')}`);
+                  if (emailSent) {
+                    console.log('Alert email sent to', user.email);
+                  }
                 } catch (emailErr) {
                   console.error('Error sending alert email:', emailErr && emailErr.message ? emailErr.message : emailErr);
                 }

@@ -77,29 +77,16 @@ async function sendSMS(phone, message) {
 // Email sending function using Nodemailer
 async function sendEmail(email, subject, message) {
   try {
-    const nodemailer = require('nodemailer');
-
-    // Create transporter (using Gmail as example - configure your own SMTP)
-    const transporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE || 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER || 'your-email@gmail.com',
-        pass: process.env.EMAIL_PASS || 'your-app-password'
-      }
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL_FROM || process.env.EMAIL_USER || 'your-email@gmail.com',
-      to: email,
-      subject: subject,
-      text: message
-    };
-
-    const result = await transporter.sendMail(mailOptions);
-    console.log(`Email sent successfully to ${email}: ${result.messageId}`);
-    return true;
+    const { sendEmail } = require('../config/email');
+    const result = await sendEmail(email, subject, message);
+    if (result) {
+      console.log(`Alert email sent successfully to ${email}`);
+      return true;
+    } else {
+      throw new Error('Email send failed');
+    }
   } catch (error) {
-    console.error('Error sending email:', error.message);
+    console.error('Error sending alert email:', error.message);
     throw error;
   }
 }
