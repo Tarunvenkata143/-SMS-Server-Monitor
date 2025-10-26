@@ -44,17 +44,13 @@ const Dashboard = () => {
 
   const loadData = async () => {
     try {
-      const [statusRes, logsRes, alertsRes, smsRes] = await Promise.all([
+      const [statusRes, logsRes] = await Promise.all([
         axios.get('/api/dashboard/status'),
-        axios.get('/api/dashboard/logs'),
-        axios.get('/api/alerts'),
-        axios.get('/api/dashboard/sms')
+        axios.get('/api/dashboard/logs')
       ]);
       setStatus(statusRes.data);
       const sortedLogs = logsRes.data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
       setLogs(sortedLogs);
-      setAlerts(alertsRes.data);
-      setSms(smsRes.data);
     } catch (err) {
       console.error(err);
     }
