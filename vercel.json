@@ -9,7 +9,7 @@
       "src": "frontend-react/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "frontend-react/build"
       }
     }
   ],
