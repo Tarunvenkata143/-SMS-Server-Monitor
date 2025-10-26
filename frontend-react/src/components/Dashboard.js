@@ -28,8 +28,6 @@ const getMetricColor = (metricName) => {
 const Dashboard = () => {
   const [status, setStatus] = useState({});
   const [logs, setLogs] = useState([]);
-  const [alerts, setAlerts] = useState([]);
-  const [sms, setSms] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
