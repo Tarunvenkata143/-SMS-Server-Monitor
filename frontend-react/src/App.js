@@ -35,7 +35,7 @@ function App() {
   return (
     <Router basename="/server-monitoring-sms">
       <div className="min-h-screen bg-gray-100">
-        
+
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<SignupScreen />} />

@@ -1,5 +1,5 @@
 
-  import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -65,9 +65,11 @@ const Settings = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-indigo-100 p-6">
       <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-lg transition-all duration-300 hover:shadow-xl">
-        <h1 className="text-3xl font-bold text-center text-indigo-700 mb-6">
-          User Profile 
-        </h1>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-3xl font-bold text-center text-indigo-700 flex-1">
+            User Profile
+          </h1>
+        </div>
 
         {message && (
           <div className="bg-green-100 text-green-700 border border-green-400 px-4 py-2 rounded mb-4 text-sm text-center">
@@ -89,7 +91,7 @@ const Settings = () => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white text-gray-900 placeholder-gray-500"
               placeholder="Your Name"
             />
           </div>
@@ -102,7 +104,7 @@ const Settings = () => {
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white text-gray-900 placeholder-gray-500"
               placeholder="9985252395"
             />
           </div>
@@ -115,7 +117,7 @@ const Settings = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white text-gray-900 placeholder-gray-500"
               placeholder="user@example.com"
             />
           </div>

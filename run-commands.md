@@ -28,8 +28,7 @@ cd backend
 # EMAIL_PASS=your_email_app_password
 
 npm install
-npm run dev (or)
-npm start
+npm run dev
 ```
 
 ### 3. Frontend Setup (New Terminal)
