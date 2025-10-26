@@ -1,91 +1,3 @@
-  // import React, { useState, useEffect } from 'react';
-  // import { useNavigate } from 'react-router-dom';
-  // import axios from 'axios';
-
-  // const Settings = () => {
-  //   const [name, setName] = useState('');
-  //   const [phone, setPhone] = useState('');
-  //   const [email, setEmail] = useState('');
-  //   const navigate = useNavigate();
-
-  //   useEffect(() => {
-  //     const token = localStorage.getItem('token');
-  //     if (!token) {
-  //       navigate('/');
-  //       return;
-  //     }
-  //     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  //     loadUserData();
-  //   }, [navigate]);
-
-  //   const loadUserData = async () => {
-  //     try {
-  //       const res = await axios.get('/api/auth/profile');
-  //       setName(res.data.name || '');
-  //       setPhone(res.data.phone || '');
-  //       setEmail(res.data.email || '');
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   const updateProfile = async () => {
-  //     try {
-  //       await axios.put('/api/auth/profile', { name, phone, email });
-  //       alert('Profile updated successfully! SMS alerts will now be sent to your phone number.');
-  //     } catch (err) {
-  //       alert('Error updating profile: ' + (err.response?.data?.message || 'Unknown error'));
-  //     }
-  //   };
-
-  //   return (
-  //     <div className="min-h-screen bg-gray-100 p-4">
-  //       <h1 className="text-3xl font-bold mb-6">Profile</h1>
-  //       <div className="bg-white p-6 rounded shadow max-w-md">
-  //         <div className="mb-4">
-  //           <label className="block text-sm font-medium text-gray-700">Name</label>
-  //           <input
-  //             type="text"
-  //             value={name}
-  //             onChange={(e) => setName(e.target.value)}
-  //             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-  //             placeholder="Your Name"
-  //           />
-  //         </div>
-  //         <div className="mb-4">
-  //           <label className="block text-sm font-medium text-gray-700">Phone Number</label>
-  //           <input
-  //             type="text"
-  //             value={phone}
-  //             onChange={(e) => setPhone(e.target.value)}
-  //             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-  //             placeholder="9985252395"
-  //           />
-  //         </div>
-  //         <div className="mb-4">
-  //           <label className="block text-sm font-medium text-gray-700">Email</label>
-  //           <input
-  //             type="email"
-  //             value={email}
-  //             onChange={(e) => setEmail(e.target.value)}
-  //             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-  //             placeholder="user@example.com"
-  //           />
-  //         </div>
-  //         <button
-  //           onClick={updateProfile}
-  //           className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
-  //         >
-  //           Update Profile
-  //         </button>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
-  // export default Settings;
-
-
 
   import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -137,7 +49,7 @@ const Settings = () => {
       setError("");
       await axios.put("/api/auth/profile", { name, phone, email });
       setMessage(
-        "✅ Profile updated successfully! SMS alerts will now be sent to your phone number."
+        "✅ Profile updated successfully!."
       );
     } catch (err) {
       console.error(err);

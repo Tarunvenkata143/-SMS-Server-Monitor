@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
@@ -29,12 +29,13 @@ if (!window.firebaseInitialized) {
 }
 
 // Set axios base URL for backend
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = 'http://localhost:5001';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/server-monitoring-sms">
       <div className="min-h-screen bg-gray-100">
+        
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<SignupScreen />} />
@@ -68,5 +69,7 @@ function App() {
     </Router>
   );
 }
+
+// (Mobile overlay removed per user request)
 
 export default App;

@@ -21,13 +21,13 @@ const SignupScreen = () => {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:5000/api/auth/send-otp", {
+      await axios.post("/api/auth/send-otp", {
         name,
         email,
         phone,
         password,
       });
-      alert("OTP sent to your phone. Please enter it below.");
+      alert("OTP sent to your mail.Please enter it below.");
       setStep(2);
     } catch (err) {
       alert("Failed to send OTP: " + (err.response?.data?.message || "Unknown error"));
@@ -42,7 +42,7 @@ const SignupScreen = () => {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:5000/api/auth/verify-otp", { phone, otp });
+      await axios.post("/api/auth/verify-otp", { phone, otp });
       alert("Registration successful! Please login.");
       navigate("/");
     } catch (err) {

@@ -40,7 +40,7 @@ const Dashboard = () => {
     }
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     loadData();
-    const interval = setInterval(loadData, 2000); // 5 seconds
+    const interval = setInterval(loadData, 1000); // 5 seconds
     return () => clearInterval(interval);
   }, [navigate]);
 

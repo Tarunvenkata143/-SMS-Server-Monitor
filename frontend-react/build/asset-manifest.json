@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.30ddddb2.css",
-    "main.js": "/static/js/main.1e6a37ad.js",
-    "static/js/606.b1f2c341.chunk.js": "/static/js/606.b1f2c341.chunk.js",
-    "static/js/453.f3642e6f.chunk.js": "/static/js/453.f3642e6f.chunk.js",
-    "index.html": "/index.html",
-    "main.30ddddb2.css.map": "/static/css/main.30ddddb2.css.map",
-    "main.1e6a37ad.js.map": "/static/js/main.1e6a37ad.js.map",
-    "606.b1f2c341.chunk.js.map": "/static/js/606.b1f2c341.chunk.js.map",
-    "453.f3642e6f.chunk.js.map": "/static/js/453.f3642e6f.chunk.js.map"
+    "main.css": "/server-monitoring-sms/static/css/main.daa54197.css",
+    "main.js": "/server-monitoring-sms/static/js/main.50010e45.js",
+    "static/js/929.88400add.chunk.js": "/server-monitoring-sms/static/js/929.88400add.chunk.js",
+    "static/js/453.f3642e6f.chunk.js": "/server-monitoring-sms/static/js/453.f3642e6f.chunk.js",
+    "index.html": "/server-monitoring-sms/index.html",
+    "main.daa54197.css.map": "/server-monitoring-sms/static/css/main.daa54197.css.map",
+    "main.50010e45.js.map": "/server-monitoring-sms/static/js/main.50010e45.js.map",
+    "929.88400add.chunk.js.map": "/server-monitoring-sms/static/js/929.88400add.chunk.js.map",
+    "453.f3642e6f.chunk.js.map": "/server-monitoring-sms/static/js/453.f3642e6f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.30ddddb2.css",
-    "static/js/main.1e6a37ad.js"
+    "static/css/main.daa54197.css",
+    "static/js/main.50010e45.js"
   ]
 }

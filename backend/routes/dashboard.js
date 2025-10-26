@@ -45,20 +45,12 @@ function getSystemMetrics() {
     if (os.platform() === 'win32') {
       // For Windows, use a more accurate calculation
       const execSync = require('child_process').execSync;
-      const output = execSync('wmic logicaldisk get size,freespace,caption').toString();
-      const lines = output.trim().split('\n').slice(1);
-      let totalSize = 0;
-      let totalFree = 0;
-
-      lines.forEach(line => {
-        const parts = line.trim().split(/\s+/);
-        if (parts.length >= 3 && parts[0].endsWith(':')) {
-          const free = parseInt(parts[1]) || 0;
-          const size = parseInt(parts[2]) || 0;
-          totalFree += free;
-          totalSize += size;
-        }
-      });
+      // Use PowerShell to get more reliable disk space information
+      const output = execSync('powershell -command "$drive = Get-PSDrive C; $total = $drive.Used + $drive.Free; $usedPercent = [Math]::Round(($drive.Used / $total) * 100, 2); Write-Output $usedPercent"').toString();
+      const usagePercentage = parseFloat(output);
+      if (!isNaN(usagePercentage)) {
+        diskSpace = Math.min(100, Math.max(0, usagePercentage));
+      }
 
       if (totalSize > 0) {
         const used = totalSize - totalFree;
